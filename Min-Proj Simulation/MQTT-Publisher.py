@@ -3,6 +3,7 @@
 #MQTT is Message Query Telematry Transport Protocol
 #The cylinder data is published, the subscriber will receive it's signal.
 # Use sudo pip3 install paho-mqtt
+#Suppose requests fail, use pip3 install requests
 #Check readings @ http://www.hivemq.com/demos/websocket-client/
 #The Fast2SMS API link be @ https://www.fast2sms.com/
 #Make an account and get the Dev-API Key
@@ -18,7 +19,7 @@ def calibrate(cylinder_weight):
     rem_weight=cylinder_weight-main_cylinder_weight
     return rem_weight
 
-#function for calibration in a detailed way: 100 - Full, 75 - Three Quarters, 50 - Half,
+#function for calibration in a detailed way: 100 - Full, 75 - Three Quarters, 50 - Half,X
 #25 - Quarter filled and 0 - Dangerously 5-10% 
 def calibrate_signal(cylinder_weight):
     if 20<=cylinder_weight<=25:
@@ -47,21 +48,21 @@ while(loop_flag):
     print("Printed value - "+str(cylinder_weight)+" and signal - "+cylinder_signal) #Reference
     print("----------------------------")
     #if signal calibrated to be dangerously low or quarter fill, then break from the loop
-    if cylinder_signal=='Dangerously Low' or cylinder_signal=='Quarter_Fill':
+    if cylinder_signal=='Dangerously Low':
         loop_flag=False
         flag=0
     time.sleep(5)
 
 #if loop is broken
 #It uses a REST API
-if flag==0:
+"""if flag==0:
     url = "https://www.fast2sms.com/dev/bulkV2"
     querystring = {
-        "authorization": "(API_KEY)", #I ain't mentioning it here, hAcKeRs wiLL sTeaL iT
-        "message": "The cylinder is very low on gas!", #SMS Body message
+        "authorization": "ImXyat19xoJfRqc0DABzeKVC4iuGQhEO5ZrdpvFL6YkNHwPTl8KtGIMrRvHofiPgzmB2xWVJXdShpUFu", #I ain't mentioning it here, hAcKeRs wiLL sTeaL iT
+        "message": "Your cylinder is very low on gas, an order has been sent!", #SMS Body message
         "language": "english",
         "route": "q",
-        "numbers": "9*********, 9*********"} #Insert yo phone numbers here
+        "numbers": "9606740404"} #Insert yo phone numbers here
   
     headers = {
         'cache-control': "no-cache"
@@ -72,4 +73,4 @@ if flag==0:
         print("SMS Successfully Sent")
     
     except:
-        print("Oops! Something wrong")
+        print("Oops! Something wrong")"""
